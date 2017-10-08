@@ -1,5 +1,3 @@
-source("utils.R")
-
 sample.data <- function(dataset, perc_size = 0.75, seed){
   if(missing(seed)){
   seed  <- random.seed.gen()
