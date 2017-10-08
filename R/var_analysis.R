@@ -5,7 +5,7 @@ sample.data <- function(dataset, perc_size = 0.75, seed){
   seed  <- random.seed.gen()
   }
 
-  smp_size <- floor(0.75 * nrow(mtcars))
+  smp_size <- floor(perc_size * nrow(dataset))
 
   set.seed(seed)
   train_ind <- sample(seq_len(nrow(dataset)), size = smp_size)
