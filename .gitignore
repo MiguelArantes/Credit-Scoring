@@ -7,7 +7,6 @@
 
 # Example code in package build process
 *-Ex.R
-*-temp.R
 
 # Output files from R CMD build
 /*.tar.gz
@@ -16,8 +15,8 @@
 /*.Rcheck/
 
 # RStudio files
-.Rproj.user/
-.Rproj
+*.Rproj.user/
+*.Rproj
 
 # produced vignettes
 vignettes/*.html
@@ -33,4 +32,3 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
-.Rproj.user
