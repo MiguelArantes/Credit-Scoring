@@ -19,11 +19,11 @@ sample.data <- function(dataset, perc_size = 0.75, seed){
 select.pca <- function(dataset){
   class_ds <- lapply(dataset, class)
   
-  log.ds <- log(dataset[names(class_ds[class_ds == "numeric"])])
+  log_ds <- log(dataset[names(class_ds[class_ds == "numeric"])])
   
-  ds.pca <- stats::prcomp(log.ds,
+  ds_pca <- stats::prcomp(log_ds,
                    center = TRUE,
                    scale. = TRUE) 
   
-  return(ds.pca)
+  return(ds_pca)
 }
