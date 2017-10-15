@@ -1,13 +1,21 @@
 source("utils.R")
 
-credit.scoring <- function(formula, dataset, ds_pca, family = 'gaussian') {
-  if(!missing(ds_pca)){
-  # FIXME: working in this!
-  dataset  <- predict(pca, newdata = dataset)
+credit.scoring <-
+  function(formula, dataset, ds_pca,
+           family = binomial("logit"),
+           direction = "both",
+           steps = 100) {
+    if (!missing(ds_pca)) {
+      # FIXME: working in this!
+      dataset  <- predict(pca, newdata = dataset)
+    }
+
+    model <-
+      step(
+        glm(formula, data = dataset, family = family),
+        direction = direction,
+        steps = steps
+      )
+
+    return(model)
   }
-
-  model <- stats::glm(formula, data = dataset, family = family)
-
-  return(model)
-}
-
