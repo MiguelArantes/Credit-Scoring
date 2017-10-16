@@ -7,7 +7,7 @@ credit.scoring <-
            steps = 100) {
     if (!missing(ds_pca)) {
       # FIXME: working in this!
-      dataset  <- predict(pca, newdata = dataset)
+      dataset  <- predict(ds_pca, newdata = dataset)
     }
 
     model <-
