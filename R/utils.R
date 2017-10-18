@@ -1,4 +1,6 @@
-random.seed.gen <- function(n = 1, min = 0, max = 10 ^ 5) {
+random.seed.gen <- function(n = 1,
+                            min = 0,
+                            max = 10 ^ 5) {
   seed <- sample(min:max, n, replace = TRUE)
 
   return(seed)
@@ -33,15 +35,14 @@ get.data.db <- function(conn, table, ts_gte, ts_lt) {
     stop(sprintf("Table '%s' does not exist!", table))
 
   sql <- paste(
-    "SELECT * FROM", table,
+    "SELECT * FROM",
+    table,
     "WHERE ts >= to_timestamp($1) AND ts < to_timestamp($2)",
     "ORDER BY ts ASC;"
   )
 
-  dataset <- RPostgreSQL::dbGetQuery(
-    conn, sql,
-    list(ts_gte, ts_lt)
-  )
+  dataset <- RPostgreSQL::dbGetQuery(conn, sql,
+                                     list(ts_gte, ts_lt))
 
   return(dataset)
 }
