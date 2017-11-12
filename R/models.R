@@ -1,4 +1,4 @@
-source("utils.R")
+source("utils.R", chdir = TRUE)
 
 credit.scoring <-
   function(response,

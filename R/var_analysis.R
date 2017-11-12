@@ -1,6 +1,6 @@
-source("utils.R")
+source("utils.R", chdir = TRUE)
 
-sample.data <- function(dataset, perc_size = 0.75, seed) {
+sample.data <- function(dataset, perc_test = 0.75, perc_valid = 0, seed) {
   if (missing(seed)) {
     seed  <- random.seed.gen()
   }
