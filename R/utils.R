@@ -52,3 +52,9 @@ close.conn.db <- function(conn) {
   RPostgreSQL::postgresqlCloseConnection(conn)
   invisible()
 }
+
+mode.R <- function(v) {
+  uniqv <- unique(v)
+  
+  return(uniqv[which.max(tabulate(match(v, uniqv)))])
+}

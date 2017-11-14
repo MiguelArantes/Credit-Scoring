@@ -59,3 +59,13 @@ predict.pca <- function(dataset,ds_pca,rm_vars) {
 
   return(dataset)
 }
+
+set.clusters <- function(dataset, min_nc = 5, max_nc = 14){
+  nb <- NbClust::NbClust(dataset, diss=NULL, distance = "euclidean", 
+                min.nc=min_nc, max.nc=max_nc, method = "kmeans", 
+                index = "all", alphaBeale = 0.1)
+  
+
+  nb <- mode.R(number_of_clusters$Best.nc[1,1:6])
+  return(nb)
+}
