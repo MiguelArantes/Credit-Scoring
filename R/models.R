@@ -46,6 +46,7 @@ select.pca <- function(dataset, rm_vars) {
 }
 
 predict.pca <- function(dataset,ds_pca,rm_vars) {
+  
   class_ds <- lapply(dataset, class)
 
   ds <- dataset[names(class_ds[class_ds == "numeric" |
@@ -61,14 +62,15 @@ predict.pca <- function(dataset,ds_pca,rm_vars) {
 }
 
 set.clusters <- function(dataset, min_nc = 5, max_nc = 14){
+  dataset <- dataset$prediction
+  
   nb <- NbClust::NbClust(dataset, diss=NULL, distance = "euclidean", 
                 min.nc=min_nc, max.nc=max_nc, method = "kmeans", 
                 index = "all", alphaBeale = 0.1)
   
-
-  nc <- mode.R(nb$Best.nb[1,1:6])
+  nc <- mode.R(nb$Best.nc[1,1:6])
   
-  ic <- kmeans(prediction[, list(prediction)],nb)
+  ic <- classInt::classIntervals(dataset, n = nc, style = "jenks")
   
   return(list(number_of_clusters = nc, cluster_prediction = ic))
 }
