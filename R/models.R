@@ -66,6 +66,9 @@ set.clusters <- function(dataset, min_nc = 5, max_nc = 14){
                 index = "all", alphaBeale = 0.1)
   
 
-  nb <- mode.R(number_of_clusters$Best.nc[1,1:6])
-  return(nb)
+  nc <- mode.R(nc$Best.nc[1,1:6])
+  
+  ic <- kmeans(prediction[, list(prediction)],nb)
+  
+  return(list(number_of_clusters = nc, cluster_prediction = ic))
 }
