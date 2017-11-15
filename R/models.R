@@ -67,3 +67,17 @@ set.clusters <- function(dataset, min_nc = 5, max_nc = 14){
   
   return(list(number_of_clusters = nc, cluster_prediction = ic))
 }
+
+set.ranks <- function(dataset, clusters){
+  
+  ranks <- data.table::data.table(
+    rank = 1:clusters$number_of_clusters,
+    min_rank = c(0,
+                 clusters$cluster_prediction$brks[2:(clusters$number_of_clusters)]),
+    max_rank = c(clusters$cluster_prediction$brks[2:(clusters$number_of_clusters)], 1)
+  )
+  
+
+  
+  return(list(ranks_intervals = ranks, dataset = dataset))
+}
