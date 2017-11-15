@@ -1,23 +1,16 @@
 source("utils.R", chdir = TRUE)
 
 credit.scoring <-
-  function(response,
+  function(set_formula,
            dataset,
-           pca = FALSE,
-           family = binomial("logit"),
-           direction = "both",
-           steps = 100) {
-
-    if (pca) {
-    model_pca <- select.pca(dataset = dataset, rm_vars = response)
-    dataset  <- predict.pca(dataset = dataset, ds_pca = model_pca, rm_vars = response)
-    }
+           set_direction = "both",
+           set_steps = 100) {
 
     model <-
       step(
-        glm(formula = paste(response,"~ ."), data = dataset, family = family),
-        direction = direction,
-        steps = steps
+        glm(formula = set_formula, data = dataset, family = binomial("logit")),
+        direction = set_direction,
+        steps = set_steps
       )
 
     return(model)
