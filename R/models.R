@@ -55,6 +55,12 @@ predict.pca <- function(dataset,ds_pca,rm_vars) {
 }
 
 set.clusters <- function(dataset, min_nc = 5, max_nc = 14){
+
+  if(nrow(dataset)>2500){
+  valid_ind <- sample(seq_len(nrow(dataset)), size = 2500)
+  dataset <- dataset[valid_ind, ]
+  }
+  
   dataset <- dataset$prediction
   
   nb <- NbClust::NbClust(dataset, diss=NULL, distance = "euclidean", 
@@ -68,16 +74,21 @@ set.clusters <- function(dataset, min_nc = 5, max_nc = 14){
   return(list(number_of_clusters = nc, cluster_prediction = ic))
 }
 
-set.ranks <- function(dataset, clusters){
+set.levels <- function(dataset, clusters){
   
-  ranks <- data.table::data.table(
-    rank = 1:clusters$number_of_clusters,
-    min_rank = c(0,
+  levels <- data.table::data.table(
+    level = 1:clusters$number_of_clusters,
+    min_level = c(0,
                  clusters$cluster_prediction$brks[2:(clusters$number_of_clusters)]),
-    max_rank = c(clusters$cluster_prediction$brks[2:(clusters$number_of_clusters)], 1)
+    max_level = c(clusters$cluster_prediction$brks[2:(clusters$number_of_clusters)], 1)
   )
   
-
+  data.table::setkey(dataset,'prediction')
+  data.table::setkey(levels,'min_level','max_level')
+  prediction <-
+    levels[dataset, roll = Inf][, `:=` (prediction = round(min_level,4),
+                                               min_level = NULL,
+                                               max_level = NULL)]
   
-  return(list(ranks_intervals = ranks, dataset = dataset))
+  return(list(levels_intervals = levels, prediction = prediction))
 }
