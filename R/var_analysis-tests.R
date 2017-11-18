@@ -2,9 +2,9 @@
 
 source("var_analysis.R", chdir = TRUE)
 
-testthat::test_that("SamuraiX - DatasetFillMissing", {
+testthat::test_that("var_analysis - sample.data", {
   
-  dataset <- data.table::data.table(readr::read_csv("../data/dataset.csv"))
+  dataset <- readRDS("../data/dataset.Rds")
   
   sample_data <-
     sample.data(dataset, perc_test = 0.5, perc_valid = 0.25, seed = 1)
