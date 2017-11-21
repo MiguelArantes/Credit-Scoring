@@ -13,8 +13,9 @@ This project is in R, so you need R instaled (Linux is a nice to have).
 
 ### Installing
 
-You may need some R packages.
+You need to have a few packages installed,
 
+- open R and run:
 ```
 install.packages('data.table')
 install.packages('classInt')
@@ -23,7 +24,10 @@ install.packages('classInt')
 install.packages('testthat')
 ```
 
-or just simple do in the console: Rscript install-packages.R
+- or just simple do in the console: 
+```
+Rscript install-packages.R
+```
 
 ## License
 
